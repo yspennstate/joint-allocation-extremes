@@ -1,0 +1,219 @@
+\section{Poissonized rare counts and upper ranks}\label{sec:poisson}
+The indexed record contains more information than is needed to describe its multiset of values. After the original sample labels are forgotten, a further independent-Poisson approximation is available without requiring a bounded expected number of rare observations.
+
+For $x\in A_n$, put
+\[
+ C_{n,x}=\sum_{i=1}^n\ind_{\{X_{n,i}=x\}},\qquad
+ \mathsf C_n=(C_{n,x})_{x\in A_n}.
+\]
+Let $\mathsf Z_n=(Z_{n,x})_{x\in A_n}$ have independent coordinates
+\[
+ Z_{n,x}\sim\operatorname{Poisson}(nP_n\{x\}).
+\]
+Both count vectors have finite total mass almost surely, since $nq_n<\infty$ for each $n$.
+
+\begin{theorem}[Poisson approximation of all rare-value counts]\label{thm:poisson}
+Under the hypotheses of Theorem~\ref{thm:rare}, define
+\[
+ e_n(C)=\sup_{m\in\mathcal C_n(C)}
+ \TV\bigl(\Law(\rare_n\mid S_n=m),\Law(\rare_n)\bigr).
+\]
+Then
+\begin{equation}\label{eq:poissonbound}
+ \sup_{m\in\mathcal C_n(C)}
+ \TV\bigl(\Law(\mathsf C_n\mid S_n=m),\Law(\mathsf Z_n)\bigr)
+ \le e_n(C)+(1-e^{-nq_n})q_n\longrightarrow0.
+\end{equation}
+In particular, the assertion holds when $nq_n\to\infty$.
+\end{theorem}
+\begin{proof}
+The first comparison, between conditioned and unconditioned $\mathsf C_n$, follows from Theorem~\ref{thm:rare} by contraction. Under the independent sample law, the total number of rare observations has distribution $\operatorname{Bin}(n,q_n)$. Given that total, their values are independent marks with law $P_n(\,\cdot\mid A_n)$. The total count of $\mathsf Z_n$ has distribution $\operatorname{Poisson}(nq_n)$, and, conditional on the total, its marks have exactly the same law. These are the usual marking and splitting properties of independent Poisson counts.
+
+Applying the common marking kernel gives
+\[
+ \TV\bigl(\Law(\mathsf C_n),\Law(\mathsf Z_n)\bigr)
+ \le \TV\bigl(\operatorname{Bin}(n,q_n),\operatorname{Poisson}(nq_n)\bigr).
+\]
+Projection onto the total count gives the reverse inequality. Thus the two distances are equal. The standard Poisson approximation bound \cite{BH,AGG} is
+\begin{equation}\label{eq:binpois}
+ \TV\bigl(\operatorname{Bin}(n,q),\operatorname{Poisson}(nq)\bigr)
+ \le(1-e^{-nq})q,\qquad 0\le q\le1.
+\end{equation}
+For example, Theorem~1 of \cite{AGG}, whose total-variation convention is twice ours, gives \eqref{eq:binpois} by taking independent Bernoulli indicators: $b_1=nq^2$ and $b_2=b_3=0$. The case $q=0$ is immediate. The triangle inequality proves \eqref{eq:poissonbound}.
+\end{proof}
+
+The distinction between values and labels is important. Theorem~\ref{thm:poisson} concerns counts indexed by the possible observation values. It does not replace each original sample position by an independent Poisson count. The latter process can put several observations at one position and is not the approximation used here.
+
+\begin{corollary}[Poissonized upper ranks]\label{cor:poissonranks}
+In Theorem~\ref{thm:ranks}, let $M_n\sim\operatorname{Poisson}(n)$ be independent of a sequence of independent $P_n$ observations. Write $\widehat X_{n,(1)}\ge\widehat X_{n,(2)}\ge\cdots$ for their decreasing order statistics up to $M_n$, padding with zeros when necessary. For every $k_n=o(n)$,
+\[
+ \sup_{m\in\mathcal C_n(C)}
+ \TV\left(\Law((X_{n,(j)})_{j\le k_n}\mid S_n=m),
+          \Law((\widehat X_{n,(j)})_{j\le k_n})\right)\to0.
+\]
+\end{corollary}
+\begin{proof}
+Choose the upper threshold $h_n$ from the proof of Theorem~\ref{thm:ranks}. Its tail probability $q_n$ tends to zero and $nq_n/k_n\to\infty$. The corresponding rare counts of the Poissonized sample are the independent counts in Theorem~\ref{thm:poisson}. Their total is Poisson with mean $nq_n$, so Chebyshev's inequality gives probability tending to one of at least $k_n$ retained observations. The independent fixed-size sample has the same property, and Theorem~\ref{thm:rare} transfers it to every conditioned sample in the central window. Sort each rare multiset and take its first $k_n$ entries, padding by zeros. The same map recovers both rank vectors outside events of probability tending uniformly to zero. Apply Theorem~\ref{thm:poisson} and contraction.
+\end{proof}
+
+\section{Several constraints and a growing coordinate block}\label{sec:vector}
+The same argument allows finitely many sum constraints and the simultaneous observation of a prescribed sublinear set of coordinates. The conclusion is joint: separate approximations for a coordinate block and a rare record would not imply it. Conditional representations with vector weights are already part of the framework of \cite{AT}; the theorem below supplies the finite-variance asymptotic for this particular observation scheme.
+
+Fix $r\ge1$. For each $n$, let $V_{n,1},\ldots,V_{n,n}$ be independent with common law $Q_n$ on $\Z^r$, mean $\mu_n$ and covariance matrix $\Sigma_n$. Assume
+\begin{enumerate}
+ \item $V_{n,1}\dto V$, where $\Sigma=\operatorname{Cov}(V)$ is positive definite;
+ \item $\{\|V_{n,1}\|^2:n\ge1\}$ is uniformly integrable;
+ \item the additive subgroup generated by
+ \begin{equation}\label{eq:fullspan}
+ \{x-y:x,y\in\supp\Law(V)\}
+ \end{equation}
+ is $\Z^r$.
+\end{enumerate}
+Here and below $\|\cdot\|$ is Euclidean norm. The mean and covariance converge to those of $V$. Assumption~(iii) is the full-lattice condition; it is stronger than saying only that the support is not contained in an affine hyperplane. A fixed affine lattice of full rank can be reduced to this setting by a change of coordinates.
+
+Let $A_n\subset\Z^r$ satisfy $q_n=Q_n(A_n)\to0$, and let $I_n\subset\{1,\ldots,n\}$ be deterministic with $\ell_n=|I_n|=o(n)$. Observe
+\begin{equation}\label{eq:blockrecord}
+ \mathsf T_n=\left((V_{n,i})_{i\in I_n},
+       (Z_{n,i})_{i\notin I_n}\right),\qquad
+ Z_{n,i}=\begin{cases}V_{n,i},&V_{n,i}\in A_n,\\ *,&V_{n,i}\notin A_n.
+ \end{cases}
+\end{equation}
+The order of the coordinates in each component is their original order. Write $S_n=\sum_iV_{n,i}$.
+
+\begin{theorem}[Joint block and rare-record comparison]\label{thm:vector}
+Under the assumptions above, for every $C>0$,
+\begin{equation}\label{eq:vector}
+ \sup_{m\in\mathcal D_n(C)}
+ \TV\bigl(\Law(\mathsf T_n\mid S_n=m),\Law(\mathsf T_n)\bigr)\to0,
+\end{equation}
+where
+\[
+ \mathcal D_n(C)=\{m\in\Z^r:\|m-n\mu_n\|\le C\sqrt n,
+                      \ \Pp(S_n=m)>0\}.
+\]
+The unconditional law in \eqref{eq:vector} is the product of the law of the prescribed coordinate block and that of the rare record outside the block.
+\end{theorem}
+
+We first record the multivariate version of the local estimate. For a positive-definite matrix $\Gamma$, let
+\[
+ g_\Gamma(x)=\frac{\exp(-x^{\mathsf T}\Gamma^{-1}x/2)}
+ {(2\pi)^{r/2}\sqrt{\det\Gamma}}.
+\]
+
+\begin{lemma}[Multivariate local estimate]\label{lem:vectorllt}
+Suppose the row laws of $W_n\in\Z^r$ satisfy \textnormal{(i)--(iii)} above, with means $b_n$ and covariance matrices $\Gamma_n\to\Gamma>0$. For every fixed $\eta\in(0,1)$,
+\begin{equation}\label{eq:vectorllt}
+ \sup_{\substack{\eta n\le N\le n\\ z\in\Z^r}}
+ \left|N^{r/2}\Pp\left(\sum_{i=1}^NW_{n,i}=z\right)
+       -g_{\Gamma_n}\left(\frac{z-Nb_n}{\sqrt N}\right)\right|\to0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+This is the Fourier proof of Lemma~\ref{lem:llt} in $r$ dimensions; we give the details needed for the lattice condition. Uniform integrability of the centered squared norms gives, for $\psi_n(t)=\E e^{it^{\mathsf T}(W_n-b_n)}$,
+\[
+ \psi_n(t)=1-\tfrac12t^{\mathsf T}\Gamma_nt+o(\|t\|^2)
+ \quad(t\to0),
+\]
+with a remainder uniform in $n$. Indeed, split according to $\|W_n-b_n\|\le M$ and its complement, as in \eqref{eq:taylor}. The eigenvalues of $\Gamma_n$ stay bounded away from zero. It follows that $|\psi_n(t)|\le e^{-c\|t\|^2}$ on a fixed neighborhood of zero.
+
+Weak convergence on $\Z^r$ implies total-variation convergence of the one-coordinate laws, hence uniform convergence of their characteristic functions. If the limiting characteristic function has modulus one at $t$, then $t^{\mathsf T}(x-y)\in2\pi\Z$ for all support differences. By \eqref{eq:fullspan}, this forces $t\in2\pi\Z^r$. On the torus $[-\pi,\pi]^r$, compactness therefore gives a uniform bound $\rho<1$ outside any fixed neighborhood of zero.
+
+Fourier inversion followed by $u=\sqrt N\,t$ now gives
+\[
+ N^{r/2}\Pp\left(\sum_{i=1}^NW_{n,i}=z\right)
+ =\frac1{(2\pi)^r}\int_{[-\pi\sqrt N,\pi\sqrt N]^r}
+ e^{-iu^{\mathsf T}(z-Nb_n)/\sqrt N}\psi_n(u/\sqrt N)^N\,du.
+\]
+On bounded $u$ sets the second factor converges to
+$\exp(-u^{\mathsf T}\Gamma_nu/2)$ with error tending to zero. The small-frequency bound supplies an integrable Gaussian majorant; the remaining integral is at most a constant times $N^{r/2}\rho^N$. Comparison with the Gaussian Fourier integral proves \eqref{eq:vectorllt}, uniformly in $z$ because the phase has modulus one. Uniformity over $\eta n\le N\le n$ follows by the same subsequence argument as in Lemma~\ref{lem:llt}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:vector}]
+For large $n$, put
+\[
+ a_n=\E[V_{n,1}\ind_{\{V_{n,1}\in A_n\}}],\qquad
+ \zeta_n\sim\Law(V_{n,1}\mid V_{n,1}\notin A_n),\qquad
+ b_n=\frac{\mu_n-a_n}{1-q_n}.
+\]
+Uniform square integrability and $q_n\to0$ imply
+\begin{equation}\label{eq:vectorraresecond}
+ \beta_n:=\E[\|V_{n,1}\|^2\ind_{\{V_{n,1}\in A_n\}}]\to0.
+\end{equation}
+The complement laws converge to $\Law(V)$ in total variation, their squared norms are uniformly integrable, and their covariance matrices $\Gamma_n$ converge to $\Sigma$. Thus Lemma~\ref{lem:vectorllt} applies to both sets of row laws.
+
+Let $R_n$ count rare observations outside $I_n$, let $K_n$ be the sum of all the revealed vectors, and set $N_n=n-\ell_n-R_n$. Given the observation \eqref{eq:blockrecord}, the $N_n$ unrevealed variables are independent with law $\zeta_n$. The exact conditional density is therefore
+\begin{equation}\label{eq:vectordensity}
+ D_{n,m}(\mathsf T_n)=
+ \frac{\Pp(\zeta_{n,1}+\cdots+\zeta_{n,N_n}=m-K_n)}
+      {\Pp(S_n=m)}.
+\end{equation}
+The empty sum has value zero; as before this density is nonnegative and has expectation one.
+
+Define the centered revealed contribution
+\begin{align}\label{eq:vectorU}
+ U_n={}&\sum_{i\in I_n}(V_{n,i}-\mu_n)\\
+ &+\sum_{i\notin I_n}
+ \left((V_{n,i}-b_n)\ind_{\{V_{n,i}\in A_n\}}-(\mu_n-b_n)\right).\notag
+\end{align}
+Each summand is centered because $a_n-q_nb_n=\mu_n-b_n$. Independence and boundedness of $b_n$ give
+\begin{align}\label{eq:vectorUbound}
+ \E\|U_n\|^2
+ &\le \ell_n\operatorname{tr}\Sigma_n
+ +(n-\ell_n)\E[\|V_{n,1}-b_n\|^2\ind_{A_n}(V_{n,1})]\notag\\
+ &\le \ell_n\operatorname{tr}\Sigma_n
+       +2n(\beta_n+\|b_n\|^2q_n)=o(n).
+\end{align}
+Also $N_n/n\pto1$. Direct expansion gives the identity
+\begin{equation}\label{eq:vectorcentering}
+ (m-K_n)-N_nb_n=(m-n\mu_n)-U_n.
+\end{equation}
+Uniformly for $m\in\mathcal D_n(C)$, the vectors
+$(m-n\mu_n)/\sqrt n$ and $((m-K_n)-N_nb_n)/\sqrt{N_n}$ differ by $o_{\Pp}(1)$.
+
+On $N_n\ge n/2$, apply Lemma~\ref{lem:vectorllt} to \eqref{eq:vectordensity}. The denominator is bounded below by $c_C n^{-r/2}$, because $\Sigma_n\to\Sigma>0$ and the central arguments lie in a fixed ball. The numerator has the same Gaussian value up to $o_{\Pp}(1)$ after multiplication by $n^{r/2}$: use \eqref{eq:vectorcentering}, $\Gamma_n\to\Sigma$, and $N_n/n\pto1$. The local-limit errors are deterministic and uniform in all possible $N_n,K_n,m$. Consequently
+\[
+ \sup_{m\in\mathcal D_n(C)}|D_{n,m}(\mathsf T_n)-1|\pto0.
+\]
+The event $N_n<n/2$ has probability tending to zero and does not affect this assertion. The one-sided identity of Lemma~\ref{lem:l1} proves \eqref{eq:vector}. Finally, the block and the record outside it are independent before conditioning because they depend on disjoint sets of independent coordinates.
+\end{proof}
+
+\begin{corollary}[A coordinate block together with the upper ranks]\label{cor:blockranks}
+Let $X$ be a nonnegative integer-valued law of unbounded support and finite positive variance. For deterministic $I_n\subset\{1,\ldots,n\}$ with $|I_n|=o(n)$ and $k_n=o(n)$, the joint law
+\[
+ \Law\left((X_i)_{i\in I_n},(X_{(j)})_{j\le k_n}\,\middle|\,S_n=m\right)
+\]
+is at total-variation distance tending uniformly to zero from its unconditional law for attainable $|m-n\E X|\le C\sqrt n$.
+\end{corollary}
+\begin{proof}
+Reduce the maximal lattice of $X$ to span one and apply Theorem~\ref{thm:vector} with $r=1$. Choose a rare upper tail of probability $q_n\to0$ with $nq_n/k_n\to\infty$, as in Theorem~\ref{thm:ranks}. Among the $n-|I_n|$ coordinates outside the block there are at least $k_n$ tail observations with probability tending to one. The same holds after conditioning by Theorem~\ref{thm:vector}. The revealed block and the rare observations outside it therefore determine the first $k_n$ ranks of the whole sample with high probability. Apply the same sorting map to both laws. No assertion of independence between the block and the ranks is needed or made.
+\end{proof}
+
+\subsection{A prescribed number of zeros and of leaves}
+Here is a concrete application in which the extra constraint is not redundant. For a fixed nonnegative integer-valued $X$, write $p_j=\Pp(X=j)$ and
+\[
+ S_n=\sum_{i=1}^nX_i,\qquad E_n=\sum_{i=1}^n\ind_{\{X_i=0\}}.
+\]
+
+\begin{corollary}[Upper ranks under two constraints]\label{cor:zeros}
+Suppose $p_0p_1p_2>0$ and $\E X^2<\infty$. For every $k_n=o(n)$ and $C>0$,
+\[
+ \sup_{(m,e)\in\mathcal H_n(C)}
+ \TV\left(\Law((X_{(j)})_{j\le k_n}\mid S_n=m,E_n=e),
+           \Law((X_{(j)})_{j\le k_n})\right)\to0,
+\]
+where $\mathcal H_n(C)$ consists of attainable integer pairs satisfying
+$|m-n\E X|+|e-np_0|\le C\sqrt n$.
+\end{corollary}
+\begin{proof}
+Take $V=(X,\ind_{\{X=0\}})$. Its support contains $(0,1),(1,0),(2,0)$, whose differences generate $\Z^2$. These three points are not collinear, so the covariance matrix is positive definite. The second moment is finite. For unbounded $X$, apply Theorem~\ref{thm:vector} with an empty block and the upper-tail set $A_n=\{(x,b):x\ge h_n\}$ used in Theorem~\ref{thm:ranks}. The same binomial-tail and sorting argument proves the result. If $X$ has a finite maximum support value, the probability of fewer than $k_n$ copies of that value is exponentially small. Lemma~\ref{lem:vectorllt} bounds the conditioning probability below by $c_C/n$, uniformly on $\mathcal H_n(C)$, so the conditional failure probability still tends to zero.
+\end{proof}
+
+\begin{corollary}[Ranked outdegrees with a prescribed leaf count]\label{cor:leaves}
+Let $X$ be a critical offspring law with $p_0p_1p_2>0$ and finite variance. Condition a Galton--Watson plane tree to have $n$ vertices and $e_n$ leaves, where $|e_n-np_0|=O(\sqrt n)$ and the conditioning event has positive probability. For every $k_n=o(n)$, its first $k_n$ ranked outdegrees and the first $k_n$ ranks of $n$ independent $X$ observations have total-variation distance tending to zero.
+\end{corollary}
+\begin{proof}
+The number of zero entries in a degree word is invariant under cyclic shifts, just as its multiset of degrees is. Hence the cyclic proof of Corollary~\ref{cor:tree} remains valid after imposing exactly $e_n$ zeros. The tree's degree multiset has the law of the independent sample conditioned on $(S_n,E_n)=(n-1,e_n)$. Since $\E X=1$, these targets lie in a bounded central window. Apply Corollary~\ref{cor:zeros}.
+\end{proof}
+
+The condition on $e_n$ is essential to the formulation: a noncentral leaf proportion generally changes the reference offspring law. Corollary~\ref{cor:leaves} is a total-variation statement about ranked degrees, not about the geometry or depth-first locations of the tree. It complements the fixed-outdegree count limits in \cite{Thevenin} without identifying them with the present assertion.
+

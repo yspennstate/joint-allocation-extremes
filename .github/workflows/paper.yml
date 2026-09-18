@@ -1,0 +1,54 @@
+name: Verify and build paper
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'paper/**/*.tex'
+      - 'code/**/*.py'
+      - 'docs/**'
+      - 'README.md'
+      - 'CITATION.cff'
+      - 'Makefile'
+      - '.github/workflows/paper.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: paper-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Install TeX
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+      - name: Run exact checks
+        run: make check
+      - name: Compile manuscript
+        run: |
+          make paper
+          if grep -Eq 'undefined references|Citation .* undefined|LaTeX Error' paper/main.log; then
+            echo 'The manuscript has unresolved references or a LaTeX error.'
+            exit 1
+          fi
+      - name: Package readable sources
+        run: python3 code/package.py --output source-package.zip
+      - name: Commit generated paper and check outputs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add paper/main.pdf code/checks.json code/extension_checks.json source-package.zip
+          if ! git diff --cached --quiet; then
+            git commit -m 'Build manuscript and record exact verification outputs'
+            git push origin HEAD:main
+          fi

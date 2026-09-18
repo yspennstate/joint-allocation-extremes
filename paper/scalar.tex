@@ -1,0 +1,225 @@
+\section{The rare-record theorem}\label{sec:record}
+For each $n$, let $X_{n,1},\ldots,X_{n,n}$ be independent with common law $P_n$, mean $\mu_n$ and variance $\sigma_n^2$. We impose the following assumptions:
+\begin{enumerate}
+ \item For fixed integers $a$ and $d\ge1$, every $P_n$ is supported on $a+d\Z$.
+ \item $X_{n,1}\dto X$, where $X$ is nondegenerate and has maximal span $d$.
+ \item The squares are uniformly integrable:
+ \begin{equation}\label{eq:ui}
+ \lim_{M\to\infty}\sup_n\E[X_{n,1}^2\ind_{\{|X_{n,1}|>M\}}]=0.
+ \end{equation}
+\end{enumerate}
+These assumptions imply $\mu_n\to\mu:=\E X$ and $\sigma_n^2\to\sigma^2:=\Var X\in(0,\infty)$.
+
+Let $A_n\subset a+d\Z$ be any deterministic sets with
+\begin{equation}\label{eq:q}
+ q_n:=\Pp(X_{n,1}\in A_n)\longrightarrow0.
+\end{equation}
+Introduce a symbol $*$ outside the lattice and define the indexed record
+\begin{equation}\label{eq:record}
+ Z_{n,i}=\begin{cases}X_{n,i},&X_{n,i}\in A_n,\\ *,&X_{n,i}\notin A_n,\end{cases}
+ \qquad \rare_n=(Z_{n,1},\ldots,Z_{n,n}).
+\end{equation}
+Thus the record reveals both the positions and the exact values of all observations in $A_n$. Set $S_n=\sum_iX_{n,i}$.
+
+\begin{theorem}[Rare-record comparison]\label{thm:rare}
+Under the assumptions above, for every fixed $C>0$,
+\begin{equation}\label{eq:rare}
+ \sup_{m\in\mathcal C_n(C)}
+ \TV\bigl(\Law(\rare_n\mid S_n=m),\Law(\rare_n)\bigr)\longrightarrow0,
+\end{equation}
+where
+\[
+ \mathcal C_n(C)=\{m\in na+d\Z: |m-n\mu_n|\le C\sqrt n,\ \Pp(S_n=m)>0\}.
+\]
+\end{theorem}
+There is no assumption on the size of $nq_n$. The record may be empty with high probability, contain a tight number of observations, or contain a diverging number.
+
+\begin{corollary}[Statistics, marks, and conditioning sets]\label{cor:maps}
+The conclusion of Theorem~\ref{thm:rare} holds after applying any measurable map, possibly depending on $n$, to the record. It also holds after adjoining auxiliary marks whose conditional law given the record is unchanged by the sum constraint. Finally, for any sets $B_n\subset\mathcal C_n(C)$ with $\Pp(S_n\in B_n)>0$,
+\[
+ \TV\bigl(\Law(\rare_n\mid S_n\in B_n),\Law(\rare_n)\bigr)\to0.
+\]
+\end{corollary}
+\begin{proof}
+Total variation contracts under measurable maps and, more generally, under a common Markov kernel. The last assertion follows by writing the conditional law as a mixture over $m\in B_n$ and using the uniform bound in \eqref{eq:rare}.
+\end{proof}
+
+\begin{corollary}[Joint total-variation independence]\label{cor:independence}
+Under the hypotheses of Theorem~\ref{thm:rare},
+\[
+ \TV\bigl(\Law(\rare_n,S_n),\Law(\rare_n)\otimes\Law(S_n)\bigr)\to0.
+\]
+\end{corollary}
+\begin{proof}
+Disintegrating over the countable variable $S_n$, the distance is the mean of
+$\TV(\Law(\rare_n\mid S_n=m),\Law(\rare_n))$. The part with
+$|m-n\mu_n|\le C\sqrt n$ tends to zero uniformly by Theorem~\ref{thm:rare}.
+The remainder is at most $\Pp(|S_n-n\mu_n|>C\sqrt n)\le\sigma_n^2/C^2$.
+First let $n\to\infty$, then let $C\to\infty$.
+\end{proof}
+This integrated conclusion does not replace the pointwise theorem: small average error alone would not control conditioning on a specified lattice value.
+
+\begin{corollary}[Uniformity over rare sets]\label{cor:uniformsets}
+Fix the row laws of Theorem~\ref{thm:rare}. For every sequence $\varepsilon_n\downarrow0$, the convergence in \eqref{eq:rare} is uniform over all deterministic $A\subset a+d\Z$ satisfying $P_n(A)\le\varepsilon_n$.
+\end{corollary}
+\begin{proof}
+Failure would give a subsequence and a choice of a violating set at each of its indices. Complete these choices by empty sets at the other indices and apply Theorem~\ref{thm:rare}. This is a sequential uniformity statement, not a finite-sample rate.
+\end{proof}
+
+\section{A uniform local central limit theorem}\label{sec:llt}
+The local estimate is classical. We give the uniform version needed for the random number of unrevealed observations. Its moment hypothesis agrees with the uniform-square-integrability extension in Janson \cite[Lemma~14.1 and Remark~14.2]{Janson}; these are numbered 13.1 and 13.2 in the arXiv version.
+
+\begin{lemma}[Uniform row and sample-size local limit]\label{lem:llt}
+Suppose that $W_n$ satisfies assumptions \textnormal{(i)--(iii)} of Section~\ref{sec:record}, with mean $b_n$, variance $s_n^2\to s^2>0$, and limit of maximal span $d$. Let $W_{n,1},W_{n,2},\ldots$ be independent copies. For each fixed $\eta\in(0,1)$,
+\begin{equation}\label{eq:llt}
+ \sup_{\substack{\eta n\le N\le n\\ \ell\in Na+d\Z}}
+ \left|\sqrt N\Pp\left(\sum_{i=1}^{N}W_{n,i}=\ell\right)
+ -\frac{d}{s_n\sqrt{2\pi}}
+   \exp\left\{-\frac{(\ell-Nb_n)^2}{2Ns_n^2}\right\}\right|\to0.
+\end{equation}
+In particular, all such probabilities are at most $K/\sqrt N$ for large $n$, with a constant independent of $N$ and $\ell$.
+\end{lemma}
+\begin{proof}
+Replacing $W_n$ by $(W_n-a)/d$ reduces the proof to $a=0,d=1$. The moment assumptions and weak convergence imply convergence of the first two moments. Also, weak convergence on the integers implies convergence in total variation: on a finite set the point masses converge, and the remaining masses can be made uniformly small by tightness.
+
+Let $\phi_n(t)=\E e^{itW_n}$ and $\psi_n(t)=e^{-itb_n}\phi_n(t)$. Uniform square integrability, also valid after centering, gives the uniform expansion
+\begin{equation}\label{eq:taylor}
+ \psi_n(t)=1-\frac12s_n^2t^2+t^2\varepsilon_n(t),
+ \qquad \lim_{\delta\downarrow0}\sup_n\sup_{0<|t|\le\delta}|\varepsilon_n(t)|=0.
+\end{equation}
+To justify this without a third moment, put $Y_n=W_n-b_n$. For $|Y_n|\le M$, the third-order Taylor remainder divided by $t^2$ is bounded by $|t|M Y_n^2/6$. For $|Y_n|>M$, it is bounded by a constant times $Y_n^2$. First choose $M$ using uniform integrability, then let $t\to0$. The linear term vanishes since $\E Y_n=0$.
+
+Since $s_n^2$ stays bounded away from zero, \eqref{eq:taylor} implies that, for some $\delta,c>0$ and all sufficiently large $n$,
+\begin{equation}\label{eq:smallcf}
+ |\phi_n(t)|=|\psi_n(t)|\le e^{-ct^2},\qquad |t|\le\delta.
+\end{equation}
+Indeed, squaring the modulus in \eqref{eq:taylor} gives $1-s_n^2t^2+o(t^2)$ uniformly.
+
+Let $\phi$ be the characteristic function of the limit law. Maximal span one implies $|\phi(t)|<1$ for $0<|t|\le\pi$. Otherwise $e^{itW}$ would be constant on the support and that support would lie in a proper sublattice. Compactness and uniform convergence $\phi_n\to\phi$ therefore give a $\rho<1$ such that
+\begin{equation}\label{eq:awaycf}
+ \sup_{\delta\le|t|\le\pi}|\phi_n(t)|\le\rho
+\end{equation}
+for all large $n$.
+
+For any sequence $N=N(n)$ with $\eta n\le N\le n$, Fourier inversion, with $u=t\sqrt N$, gives
+\begin{equation}\label{eq:fourier}
+ \sqrt N\Pp\left(\sum_{i=1}^NW_{n,i}=\ell\right)
+ =\frac1{2\pi}\int_{-\pi\sqrt N}^{\pi\sqrt N}
+ e^{-iu(\ell-Nb_n)/\sqrt N}\psi_n(u/\sqrt N)^N\,du.
+\end{equation}
+For each fixed $u$, \eqref{eq:taylor} gives
+\[
+ \psi_n(u/\sqrt N)^N-e^{-s_n^2u^2/2}\longrightarrow0.
+\]
+On $|u|\le\delta\sqrt N$, \eqref{eq:smallcf} supplies the integrable bound $e^{-cu^2}$. The integral on $\delta\sqrt N\le|u|\le\pi\sqrt N$ is at most $2\pi\sqrt N\rho^N$, by \eqref{eq:awaycf}. Thus the difference between \eqref{eq:fourier} and the Gaussian Fourier integral tends to zero uniformly in $\ell$, because the phase factor has modulus one. The Gaussian integral equals the second term in \eqref{eq:llt} with $d=1$.
+
+If the convergence were not uniform over $N\in[\eta n,n]$, a sequence of violating $N$ could be selected, contradicting the argument just given. Rescaling restores $d$ and proves the lemma.
+\end{proof}
+
+\section{Proof of the rare-record theorem}\label{sec:proof}
+Write
+\begin{equation}\label{eq:tailmoments}
+ a_n=\E[X_{n,1}\ind_{\{X_{n,1}\in A_n\}}],\qquad
+ \beta_n=\E[X_{n,1}^2\ind_{\{X_{n,1}\in A_n\}}].
+\end{equation}
+For each $M$, $\beta_n\le M^2q_n+\E[X_{n,1}^2\ind_{\{|X_{n,1}|>M\}}]$. Consequently,
+\begin{equation}\label{eq:betazero}
+ \beta_n\to0,\qquad |a_n|\le\sqrt{q_n\beta_n}\to0.
+\end{equation}
+For large $n$, define
+\begin{equation}\label{eq:low}
+ \zeta_n\sim\Law(X_{n,1}\mid X_{n,1}\notin A_n),\qquad
+ b_n=\E\zeta_n=\frac{\mu_n-a_n}{1-q_n},\qquad
+ s_n^2=\Var(\zeta_n).
+\end{equation}
+Its law differs from $P_n$ in total variation by $q_n$. Moreover, for nonnegative $g$,
+$\E g(\zeta_n)\le(1-q_n)^{-1}\E g(X_{n,1})$. Thus $\zeta_n\dto X$, its squares are uniformly integrable, and $b_n\to\mu$, $s_n^2\to\sigma^2$. Its support remains in the same lattice. Lemma~\ref{lem:llt} applies both to the original row laws and to these low laws.
+
+\begin{lemma}[Exact conditional density]\label{lem:density}
+Let $z$ be a record with positive unconditional probability, with $r$ revealed entries whose sum is $k$. For every $m$ with $\Pp(S_n=m)>0$,
+\begin{equation}\label{eq:density}
+ D_{n,m}(z):=\frac{\Pp(\rare_n=z\mid S_n=m)}{\Pp(\rare_n=z)}
+ =\frac{\Pp(\zeta_{n,1}+\cdots+\zeta_{n,n-r}=m-k)}{\Pp(S_n=m)}.
+\end{equation}
+The $\zeta_{n,i}$ in the numerator are independent. An empty sum is zero. In particular, $D_{n,m}\ge0$ and $\E D_{n,m}(\rare_n)=1$.
+\end{lemma}
+\begin{proof}
+Given the indexed record, the unrevealed coordinates are independent with law \eqref{eq:low}; independence follows by factoring the original product law coordinate by coordinate. Their sum must equal $m-k$. Bayes' formula proves \eqref{eq:density}. There is no combinatorial factor, because the revealed positions are part of the record. Summing the conditional probabilities gives the normalization.
+\end{proof}
+
+\begin{remark}[Sufficiency of the revealed count and sum]
+Write $R_n$ for the number of revealed observations and $K_n$ for their sum. Since \eqref{eq:density} depends on the record only through $(R_n,K_n)$,
+\[
+ \TV\bigl(\Law(\rare_n\mid S_n=m),\Law(\rare_n)\bigr)
+ =\TV\bigl(\Law((R_n,K_n)\mid S_n=m),\Law(R_n,K_n)\bigr).
+\]
+Indeed, the sign of $D_{n,m}-1$ is constant on each fiber of $(R_n,K_n)$, so summing the absolute differences over each fiber gives equality. This is the standard sufficiency reduction for total variation discussed in \cite[Theorem~2]{AT}. In particular, retaining the original labels does not incur an additional approximation error.
+\end{remark}
+
+The following elementary form of Scheff\'e's argument \cite{Scheffe} supplies total variation without a separate uniform-integrability estimate for the likelihood ratios.
+\begin{lemma}[One-sided density identity]\label{lem:l1}
+If $D\ge0$ and $\E D=1$, then
+\begin{equation}\label{eq:l1}
+ \frac12\E|D-1|=\E(1-D)_+.
+\end{equation}
+Consequently, for normalized nonnegative densities $D_n$ on possibly different probability spaces, $D_n\to1$ in probability implies $\E|D_n-1|\to0$.
+\end{lemma}
+\begin{proof}
+Since $\E(D-1)=0$, its positive and negative parts have equal expectations. Also $0\le(1-D_n)_+\le1$. A bounded sequence converging to zero in probability converges to zero in expectation.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:rare}]
+Let
+\begin{equation}\label{eq:RK}
+ R_n=\sum_{i=1}^n\ind_{\{X_{n,i}\in A_n\}},\qquad
+ K_n=\sum_{i=1}^nX_{n,i}\ind_{\{X_{n,i}\in A_n\}}.
+\end{equation}
+Independence and \eqref{eq:betazero} give
+\begin{equation}\label{eq:fluct}
+ \Var R_n\le nq_n=o(n),\qquad \Var K_n\le n\beta_n=o(n).
+\end{equation}
+In particular, $R_n/n\pto0$, and
+\[
+ U_n:=(K_n-na_n)-(R_n-nq_n)b_n=o_{\Pp}(\sqrt n).
+\]
+The exact centering identity is
+\begin{equation}\label{eq:centering}
+ (m-K_n)-(n-R_n)b_n=(m-n\mu_n)-U_n.
+\end{equation}
+Here the first term on the right is allowed to be $O(\sqrt n)$, not necessarily $o(\sqrt n)$.
+
+On an event of probability tending to one, $N_n=n-R_n\in[n/2,n]$. Set
+\[
+ t_{n,m}=\frac{m-n\mu_n}{\sigma_n\sqrt n},\qquad
+ v_{n,m}=\frac{(m-K_n)-N_nb_n}{s_n\sqrt{N_n}}.
+\]
+Equation~\eqref{eq:centering}, $N_n/n\pto1$ and $s_n/\sigma_n\to1$ imply
+\begin{equation}\label{eq:zclose}
+ \sup_{m\in\mathcal C_n(C)}|v_{n,m}-t_{n,m}|\pto0.
+\end{equation}
+Indeed, the part containing $m-n\mu_n$ is bounded uniformly by a constant times
+$|\sigma_n\sqrt n/(s_n\sqrt{N_n})-1|$, and the remaining part is bounded by $|U_n|/(s_n\sqrt{N_n})$.
+
+Let $\gauss(t)=(2\pi)^{-1/2}e^{-t^2/2}$. Lemma~\ref{lem:llt} yields, uniformly over the central targets,
+\begin{align}
+ \Pp(S_n=m)&=\frac{d}{\sigma_n\sqrt n}\{\gauss(t_{n,m})+o(1)\},\label{eq:denom}\\
+ \Pp\left(\sum_{i=1}^{N_n}\zeta_{n,i}=m-K_n\right)
+ &=\frac{d}{s_n\sqrt{N_n}}\{\gauss(v_{n,m})+o(1)\}\label{eq:num}
+\end{align}
+on $N_n\ge n/2$. The errors are deterministic and uniform in the possible values of $N_n,K_n,m$. Lattice compatibility holds: $m\in na+d\Z$ and $K_n\in R_na+d\Z$, so $m-K_n\in N_na+d\Z$.
+
+The values $t_{n,m}$ range over a bounded interval. Thus $\gauss(t_{n,m})$ is uniformly bounded away from zero, and \eqref{eq:denom} is at least $c_C/\sqrt n$ for large $n$. Combining \eqref{eq:density} and \eqref{eq:zclose}--\eqref{eq:num} gives
+\begin{equation}\label{eq:Dconv}
+ \sup_{m\in\mathcal C_n(C)}|D_{n,m}(\rare_n)-1|\pto0.
+\end{equation}
+Values on the event $N_n<n/2$ do not affect convergence in probability.
+
+By Lemmas~\ref{lem:density} and \ref{lem:l1},
+\begin{align*}
+ \sup_{m\in\mathcal C_n(C)}\TV(\Law(\rare_n\mid S_n=m),\Law(\rare_n))
+ &=\sup_m\E(1-D_{n,m}(\rare_n))_+\\
+ &\le\E\sup_m(1-D_{n,m}(\rare_n))_+\longrightarrow0.
+\end{align*}
+The integrand is bounded by one and converges to zero in probability by \eqref{eq:Dconv}. This proves the theorem.
+\end{proof}
+

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript when using these results or verification programs."
+title: "Rare observations under lattice-sum conditioning and joint allocation extremes"
+authors:
+  - family-names: Shmalo
+    given-names: Yitzchak
+    affiliation: "Einstein Institute of Mathematics, The Hebrew University of Jerusalem"
+type: article
+date-released: 2026-09-18
+url: "https://github.com/yspennstate/joint-allocation-extremes"
+repository-code: "https://github.com/yspennstate/joint-allocation-extremes"
+keywords:
+  - conditioned sums
+  - random allocations
+  - total variation
+  - order statistics
+  - rare observations
+  - Galton-Watson trees

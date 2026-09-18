@@ -1,0 +1,99 @@
+\section{Limits of the conclusions}\label{sec:limits}\label{sec:sharp}
+The next two examples distinguish the growing-rank statement from a comparison of the entire sample, and the fixed-law statement from a mean-matched moving tilt.
+
+\begin{proposition}[A positive fraction of ranks can retain the constraint]\label{prop:linear}
+For every $\alpha\in(0,1]$, there is a fixed nonnegative integer law of unbounded support, with an exponential moment, for which the distance in \eqref{eq:lead} tends to one when $k_n=\lfloor\alpha n\rfloor$ and $m_n-n\mu=O(1)$. Thus $k_n=o(n)$ is the largest distribution-free order of ranks covered by such a statement.
+\end{proposition}
+\begin{proof}
+Choose $p\in(0,\alpha)$ and let
+\[
+ \Pp(X=0)=1-p,\qquad \Pp(X=j)=p\,2^{-j},\quad j\ge1.
+\]
+This law has span one, mean $2p$ and positive finite variance. Put $m_n=\lfloor2pn\rfloor$. If $N_n^+$ is the number of positive entries, then $N_n^+\sim\operatorname{Bin}(n,p)$ and
+\[
+ \Pp(N_n^+>k_n)\le e^{-cn}
+\]
+for some $c>0$ and all large $n$ (for $\alpha=1$ the probability is zero). The local limit theorem gives $\Pp(S_n=m_n)\asymp n^{-1/2}$, so the same event has conditional probability $O(\sqrt n e^{-cn})$.
+
+On $N_n^+\le k_n$, all positive observations are among the top $k_n$ and
+$\sum_{j\le k_n}X_{(j)}=S_n$. Thus the event
+\[
+ E_n=\left\{\sum_{j\le k_n}X_{(j)}=m_n\right\}
+\]
+has conditional probability tending to one, while its unconditional probability is at most $\Pp(S_n=m_n)+\Pp(N_n^+>k_n)\to0$. Testing total variation on $E_n$ proves the assertion.
+\end{proof}
+
+\begin{proposition}[The fixed-tilt logarithmic scale]\label{prop:log}
+The assumption $m_n/n\to\lambda$ alone does not imply fixed-tilt approximation even for the largest allocation. In general, the $o(1/\log n)$ centering in Theorem~\ref{thm:weak} cannot be replaced by $O(1/\log n)$.
+\end{proposition}
+\begin{proof}
+Take $w_j=1$ for all $j$. At $\tau=1/2$, the tilted law is
+$\Pp(X=j)=2^{-j-1}$, of mean one and variance two. Fix $c>0$ and put
+\[
+ m_n=n+\left\lfloor\frac{cn}{\log n}\right\rfloor.
+\]
+The mean-matched parameter is $\tau_n=m_n/(m_n+n)$, and
+\[
+ \log(2\tau_n)=\frac{c}{2\log n}+o(1/\log n).
+\]
+Along $n=2^h$, the independent maximum under $p_{1/2}$ satisfies
+\[
+ \Pp(X_{(1)}<h)=(1-2^{-h})^{2^h}\longrightarrow e^{-1}.
+\]
+Under $p_{\tau_n}$, $n\Pp(X\ge h)=2^h\tau_n^h\to\exp\{c/(2\log2)\}$. Its maximum is therefore below $h$ with probability tending to
+$\exp\{-\exp(c/(2\log2))\}$, different from $e^{-1}$. Theorem~\ref{thm:allocation}(ii) transfers this second limit to the allocation maximum. The difference gives a positive lower bound for the fixed-tilt total-variation distance along this subsequence.
+\end{proof}
+
+The assumptions excluding sparse and infinite-variance limits are substantive. The theorems do not treat a degenerate limiting row law, supercritical condensation without a suitable finite-variance tilt, or sums in a non-Gaussian stable domain. The paper does not answer the adjacent sparse-allocation question, Problem~19.9 of \cite{Janson}.
+
+\appendix
+\section{Finite identities and reproducible checks}\label{sec:checks}
+The proofs are analytic. A companion program, \texttt{code/verify.py}, checks their finite identities in rational arithmetic. It enumerates product samples, groups them both by their indexed rare records and by their rare multisets, and compares the directly conditioned probabilities with \eqref{eq:density}. It also verifies the density normalization, the one-sided total-variation identity \eqref{eq:l1}, tilt invariance of conditioned laws, lattice compatibility, and the cyclic-shift identity used for tree degrees. A separate exact finite calculation tests the need to retain the event that the maximum exceeds a truncation level.
+
+The tests include a translated lattice, a law with negative values, a non-upper-tail rare set, an empty rare set, and all attainable totals in each finite model. The threshold-padding test includes a large boundary atom, support gaps and an upper-overflow cutoff. Table~\ref{tab:checks} records the actual enumeration sizes; every tested identity holds exactly.
+
+\begin{table}[htbp]
+\centering
+\caption{Exact finite checks in the accompanying program.}\label{tab:checks}
+\begin{tabular}{lr}
+\toprule
+Checked object & Number \\
+\midrule
+Product configurations in five record tests & 7,411 \\
+Conditional density equalities & 38,871 \\
+Conditional tilt-invariance equalities & 1,024 \\
+Degree words for $2\le n\le8$ & 4,706 \\
+Residual-centering identities & 891 \\
+Threshold-padding identities & 48,710 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These computations test finite algebra and representations; they do not prove a limiting theorem or a convergence rate. The program uses only the Python standard library and writes its results to \texttt{code/checks.json}. It is run by
+\[
+\texttt{python code/verify.py --output code/checks.json}.
+\]
+
+
+The separate program \texttt{code/verify\_extensions.py} checks 23,102 vector conditional-density identities at 192 attainable conditioning totals, 5,632 centered residual-sum identities, and 35,888 cyclic shifts preserving the leaf count. It also checks the exact equality between the total-variation distances of full rare-value counts and their total counts in a finite categorical model. The output is recorded in \texttt{code/extension\_checks.json}.
+
+\section*{Acknowledgements}
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by the Israel Science Foundation (grant number 2258/19), and by the Israel Science Foundation (ISF Grant 4101/25).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital. These entities are included in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+AI systems produced the original mathematical arguments, calculations, verification programs, and text. The author initiated and organized the research programme and arranged its communication; the author did not supply mathematical arguments or calculations and has not conducted a human mathematical review of this work.
+
+The mathematical development began with a rare-cloud argument for finitely many ranks and a direct-conditioning argument. ChatGPT (OpenAI) developed the indexed-record formulation, the uniform local-limit and censoring proofs, and the extensions to Poisson counts, growing coordinate blocks, and several lattice constraints; it also carried out literature comparisons, proof checks, and exact finite computations. These checks are not independent human peer review or an end-to-end formal verification.
+
+This work forms part of \emph{Math Brain}, a research programme on the ability of AI systems to solve mathematical problems. Details of the project will be published separately. The author is responsible for the manuscript and decisions concerning its dissemination.
+
+\section*{Data and code availability}
+The manuscript, \LaTeX{} source, verification programs, recorded outputs, and a literature-comparison note are available at
+\begin{center}
+\url{https://github.com/yspennstate/joint-allocation-extremes}.
+\end{center}
+No empirical dataset is used. The verification programs use only the Python standard library. The mathematical results are proved analytically and do not depend on the computations.
+

@@ -1,0 +1,81 @@
+{
+  "all_checks_passed": true,
+  "common_marking_kernel": {
+    "distance_equalities": 2,
+    "marking_terms": 30
+  },
+  "leaf_rotations": {
+    "degree_words": 4706,
+    "leaf_classes": 28,
+    "rotations": 35888
+  },
+  "scope": "Exact finite identities only; not a formal or numerical proof of the limiting theorems.",
+  "totals": {
+    "centering_identities": 5632,
+    "conditioning_totals": 192,
+    "configurations": 2816,
+    "density_equalities": 23102
+  },
+  "vector_cases": [
+    {
+      "block": [
+        0,
+        3
+      ],
+      "centering_identities": 2048,
+      "conditioning_totals": 46,
+      "configurations": 1024,
+      "density_equalities": 5888,
+      "dimension": 2,
+      "sample_size": 5,
+      "second_centered_revealed_moment": "379/60"
+    },
+    {
+      "block": [],
+      "centering_identities": 2048,
+      "conditioning_totals": 46,
+      "configurations": 1024,
+      "density_equalities": 11178,
+      "dimension": 2,
+      "sample_size": 5,
+      "second_centered_revealed_moment": "161/20"
+    },
+    {
+      "block": [
+        2
+      ],
+      "centering_identities": 512,
+      "conditioning_totals": 34,
+      "configurations": 256,
+      "density_equalities": 3672,
+      "dimension": 2,
+      "sample_size": 4,
+      "second_centered_revealed_moment": "1034/245"
+    },
+    {
+      "block": [
+        0
+      ],
+      "centering_identities": 512,
+      "conditioning_totals": 31,
+      "configurations": 256,
+      "density_equalities": 124,
+      "dimension": 2,
+      "sample_size": 4,
+      "second_centered_revealed_moment": "173/100"
+    },
+    {
+      "block": [
+        0,
+        2
+      ],
+      "centering_identities": 512,
+      "conditioning_totals": 35,
+      "configurations": 256,
+      "density_equalities": 2240,
+      "dimension": 3,
+      "sample_size": 4,
+      "second_centered_revealed_moment": "409/112"
+    }
+  ]
+}

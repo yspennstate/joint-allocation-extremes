@@ -1,0 +1,169 @@
+\section{Upper order statistics}\label{sec:ranks}
+\begin{theorem}[Growing ranks for triangular arrays]\label{thm:ranks}
+Assume the hypotheses of Theorem~\ref{thm:rare}, and suppose that the row laws are nonnegative and that the limit law has unbounded support. For any $1\le k_n=o(n)$, the conclusion \eqref{eq:lead} holds with $X_{(j)}$ replaced by the decreasing order statistics of $X_{n,1},\ldots,X_{n,n}$ and $\mu$ replaced by $\mu_n$.
+\end{theorem}
+\begin{proof}
+Put $u_n=\sqrt{k_n/n}\to0$. For all large $n$, choose the largest integer $h_n\ge0$ for which $\Pp(X_{n,1}\ge h_n)\ge u_n$. Such an integer exists and is finite. For each fixed $h$, weak convergence gives $\Pp(X_{n,1}\ge h)\to\Pp(X\ge h)>0$, so $h_n\to\infty$. Uniform tightness then implies $q_n:=\Pp(X_{n,1}\ge h_n)\to0$. Moreover,
+\begin{equation}\label{eq:enough}
+ \frac{nq_n}{k_n}\ge\sqrt{\frac n{k_n}}\to\infty.
+\end{equation}
+The number $R_n$ of observations at or above the threshold is binomial. For large $n$, $k_n\le nq_n/2$, and Chebyshev's inequality gives
+\[
+ \Pp(R_n<k_n)\le\frac{nq_n}{(nq_n-k_n)^2}\le\frac4{nq_n}\to0.
+\]
+Theorem~\ref{thm:rare} transfers this conclusion uniformly to the conditioned laws. Sort the revealed values, retain the first $k_n$, and fill with zeros if fewer than $k_n$ are available. This is a measurable function of the record and agrees with the actual rank vector on $R_n\ge k_n$. Total-variation contraction and the two failure probabilities prove the assertion.
+\end{proof}
+\begin{proof}[Proof of Theorem~\ref{thm:lead}]
+For an unbounded law, take the row law constant in Theorem~\ref{thm:ranks}. If a fixed law has finite maximum support value $b$, then $\Pp(X=b)>0$, so fewer than $k_n=o(n)$ occurrences of $b$ has probability at most $e^{-cn}$ for large $n$. The conditional probability of this failure is at most $e^{-cn}/\Pp(S_n=m)=O(\sqrt n e^{-cn})$, uniformly in the central window by Lemma~\ref{lem:llt}. Both rank vectors therefore equal $(b,\ldots,b)$ with probability tending to one.
+\end{proof}
+
+\section{Weighted allocations and conditioned trees}\label{sec:allocations}
+Let $w=(w_j)_{j\ge0}$ be nonnegative weights with $w_0>0$ and unbounded support. Define
+\[
+ \Phi(t)=\sum_{j\ge0}w_jt^j,\qquad
+ \Psi(t)=\frac{t\Phi'(t)}{\Phi(t)},\qquad
+ \rho=\text{radius of convergence of }\Phi.
+\]
+For $0<t\le\rho$ with $\Phi(t)<\infty$, write
+\begin{equation}\label{eq:tilt}
+ p_t(j)=\frac{w_jt^j}{\Phi(t)}.
+\end{equation}
+At $t=\rho$, moment assumptions are understood as convergent sums. Let $\nu=\lim_{t\uparrow\rho}\Psi(t)$. An allocation $Y=(Y_1,\ldots,Y_n)$ of $m$ balls is distributed by
+\begin{equation}\label{eq:allocation}
+ \Pp(Y=y)=\frac{\prod_{i=1}^nw_{y_i}}{Z_{n,m}},\qquad
+ Z_{n,m}=\sum_{\substack{y_i\ge0\\\sum_i y_i=m}}\prod_{i=1}^nw_{y_i}>0.
+\end{equation}
+The variables with law $p_t$ will be denoted $\xi_t$.
+
+\begin{lemma}[Conditional representation]\label{lem:allocation}
+For every allowable $t$, the law in \eqref{eq:allocation} equals the law of $n$ independent copies of $\xi_t$ conditioned to sum to $m$.
+\end{lemma}
+\begin{proof}
+On $\sum_i y_i=m$, the product of the probabilities in \eqref{eq:tilt} is $t^m\Phi(t)^{-n}\prod_iw_{y_i}$. The first factor is constant over the conditioning event and cancels on normalization.
+\end{proof}
+
+\begin{theorem}[Allocation extremes]\label{thm:allocation}
+Suppose $\Psi(\tau)=\lambda>0$ and $\Var(\xi_\tau)\in(0,\infty)$.
+\begin{enumerate}
+ \item If $m_n=\lambda n+O(\sqrt n)$, then for every $k_n=o(n)$,
+ \begin{equation}\label{eq:allocfixed}
+ \TV\bigl(\Law((Y_{(j)})_{j\le k_n}),
+           \Law((\xi_{\tau,(j)})_{j\le k_n})\bigr)\to0,
+ \end{equation}
+ along admissible allocations.
+ \item If $0<\lambda<\nu$ and $m_n/n\to\lambda$, choose $\tau_n$ by $\Psi(\tau_n)=m_n/n$. Then \eqref{eq:allocfixed} holds for every $k_n=o(n)$ with $\xi_\tau$ replaced by $\xi_{\tau_n}$.
+ \item The conclusion in \textnormal{(ii)} also holds when $\lambda=\nu<\infty$, $m_n/n\le\nu$, and the boundary law $p_\rho$ has finite positive variance.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Part~(i) follows from Lemma~\ref{lem:allocation} and Theorem~\ref{thm:lead}. The common lattice is $d\Z$, where $d=\gcd\{j:w_j>0\}$; since $w_0>0$, this is the maximal lattice span.
+
+For~(ii), $\Psi$ is strictly increasing on $(0,\rho)$, because differentiation with respect to $\log t$ gives $\Var(\xi_t)>0$. Thus $\tau_n\to\tau<\rho$. Choose $t_*\in(\tau,\rho)$ with $\tau_n\le t_*$ for all large $n$. Since $\Phi(\tau_n)\ge w_0$,
+\[
+ p_{\tau_n}(j)\le w_0^{-1}w_jt_*^j.
+\]
+The dominating sequence has finite second moment, indeed an exponential moment. The row laws converge pointwise to $p_\tau$, are uniformly square-integrable and share the same support. Their means are exactly $m_n/n$. Apply Theorem~\ref{thm:ranks} and Lemma~\ref{lem:allocation}.
+
+For~(iii), $\tau_n\le\rho$ and $\tau_n\to\rho$. Monotone convergence gives $\Phi(\tau_n)\to\Phi(\rho)$, and, for large $n$,
+\[
+ p_{\tau_n}(j)\le 2p_\rho(j).
+\]
+Finite second moment of $p_\rho$ supplies uniform integrability. The same argument applies, including indices at which $\tau_n=\rho$.
+\end{proof}
+
+\begin{corollary}[The fixed-rank question]\label{cor:janson}
+The fixed-law and moving-tilt conclusions proposed in Janson's Problem~19.10 hold jointly for every fixed number of upper ranks. Under the central fixed-law centering, and under the mean-matched moving tilts in Theorem~\ref{thm:allocation}, the number of ranks may be any $o(n)$ sequence.
+\end{corollary}
+\begin{proof}
+Take $k_n=J$ in Theorem~\ref{thm:allocation}. The weaker subcritical fixed-law centering included in the source theorem is established in Theorem~\ref{thm:weak} below, so it is not being inferred from the central-window theorem alone.
+\end{proof}
+
+\begin{corollary}[Ranked outdegrees]\label{cor:tree}
+Let $T_n$ be a Galton--Watson plane tree with a critical nondegenerate offspring law $X$ of finite variance, conditioned to have $n$ vertices. For every $k_n=o(n)$, the decreasing vector of its first $k_n$ outdegrees and the first $k_n$ ranks of $n$ independent copies of $X$ have total-variation distance tending to zero, along admissible $n$.
+\end{corollary}
+\begin{proof}
+For a nonnegative degree sequence summing to $n-1$, put $s_0=0$ and $s_j=\sum_{i=1}^j(x_i-1)$, so $s_n=-1$. Let $j$ be the first location of the minimum of $s_0,\ldots,s_{n-1}$. Starting the sequence at $j+1$ gives nonnegative partial sums until the last step: before the wrap they are $s_k-s_j\ge0$, and after the wrap they are $-1-s_j+s_k\ge0$, since $k<j$ implies $s_k\ge s_j+1$. When $j>0$, the intermediate sum at the wrap is $-1-s_j\ge0$ because $s_j\le-1$. Conversely, these inequalities force any valid starting position to follow that first minimum. Thus exactly one of the $n$ cyclic starting positions gives a depth-first outdegree sequence of a plane tree. The total $-1$ rules out a nontrivial period of the increment sequence. This is the elementary cyclic argument underlying the total-progeny identity \cite{Dwass}; see also \cite[Section~15]{Janson}.
+
+The product probability $\prod_i\Pp(X=x_i)$ is invariant under cyclic shifts. Consequently the multiset of outdegrees of $T_n$ has the same distribution as the multiset of $n$ independent offspring variables conditioned to sum to $n-1$; this is the usual allocation representation, also discussed in \cite[Section~15]{Janson}. Since $\E X=1$, the target differs from the mean by $-1$. Apply Theorem~\ref{thm:lead}, or its bounded-support observation.
+\end{proof}
+\begin{remark}
+The tree corollary concerns ranked outdegrees and other cyclically invariant statistics. It does not identify depth-first vertex positions with the independent labels of the rare record. No claim about those positions is made.
+\end{remark}
+
+\section{Weaker centering in the subcritical case}\label{sec:weak}
+The fixed-law comparison at $m_n/n=\lambda+o(1/\log n)$ cannot be obtained by replacing the central Gaussian approximation with its value at zero. We instead compare the two independent rank vectors after a small exponential tilt. The following lemma handles large atoms at the threshold.
+
+\begin{lemma}[Censored comparison of upper ranks]\label{lem:censor}
+Let $p$ be a fixed law of unbounded support on $\Z_{\ge0}$, and let $\widetilde p_n$ have the same support. Suppose there are integers $B_n$ and numbers $\epsilon_n\to0$ such that
+\begin{align}
+ n\{p((B_n,\infty))+\widetilde p_n((B_n,\infty))\}&\to0,\label{eq:overflow}\\
+ \sup_{\substack{0\le j\le B_n\\p(j)>0}}
+ \left|\frac{\widetilde p_n(j)}{p(j)}-1\right|&\le\epsilon_n.\label{eq:relative}
+\end{align}
+If $k_n=o(n)$ and $k_n\epsilon_n^2\to0$, then the first $k_n$ upper ranks of $n$ independent $p$ variables and $n$ independent $\widetilde p_n$ variables have total-variation distance tending to zero.
+\end{lemma}
+\begin{proof}
+Choose numbers $L_n$ such that
+\begin{equation}\label{eq:Lchoice}
+ L_n\to\infty,\qquad k_n=o(L_n),\qquad L_n=o(n),\qquad L_n\epsilon_n^2\to0.
+\end{equation}
+Such a choice exists because $k_n/n\to0$ and $k_n\epsilon_n^2\to0$: multiply $\max(k_n,1)$ by a sequence tending to infinity sufficiently slowly.
+
+Let $a_n$ be the largest integer in $\supp p$ for which $np([a_n,\infty))\ge L_n$. Then
+\begin{equation}\label{eq:thresholdmass}
+ np((a_n,\infty))<L_n\le np([a_n,\infty)).
+\end{equation}
+To verify the strict inequality, let $a_n'$ be the next support point. Its tail is $p([a_n',\infty))=p((a_n,\infty))$, and maximality gives the claim. Also $a_n\to\infty$, and \eqref{eq:overflow} ensures $a_n\le B_n$ for large $n$.
+
+Censor each independent observation by keeping its value only in $(a_n,B_n]$ and replacing everything else by $*$. Write $Q_n$ and $\widetilde Q_n$ for the one-coordinate censored laws and $r_n=p((a_n,B_n])<L_n/n$. With
+\[
+ H^2(Q,\widetilde Q):=\sum_z(\sqrt{Q\{z\}}-\sqrt{\widetilde Q\{z\}})^2,
+\]
+\eqref{eq:relative} gives a contribution at most $\epsilon_n^2r_n$ from the retained values. The difference of the two cemetery masses has modulus at most $\epsilon_nr_n$. Since both cemetery masses tend to one, their contribution is at most $2\epsilon_n^2r_n^2$ for large $n$. Therefore
+\begin{equation}\label{eq:hellinger}
+ H^2(Q_n,\widetilde Q_n)\le 2\epsilon_n^2r_n,
+ \qquad
+ \TV(Q_n^{\otimes n},\widetilde Q_n^{\otimes n})
+ \le\sqrt{nH^2(Q_n,\widetilde Q_n)}
+ \le\sqrt{2L_n}\epsilon_n\to0.
+\end{equation}
+Here tensorization follows by multiplying Hellinger affinities, and $\TV\le H$ follows from Cauchy--Schwarz.
+
+Under $p$, the expected number of observations at least $a_n$ is at least $L_n$. Under $\widetilde p_n$, the expected number in $[a_n,B_n]$ is at least
+\[
+ (1-\epsilon_n)n p([a_n,B_n])\ge(1-\epsilon_n)(L_n-o(1)).
+\]
+Binomial concentration and \eqref{eq:Lchoice} show that both samples have at least $k_n$ observations at least $a_n$ with probability tending to one. By \eqref{eq:overflow}, neither sample exceeds $B_n$ with probability tending to one.
+
+On these events, its first $k_n$ ranks are obtained by sorting the retained values and filling any remaining positions with $a_n$. The same map applies to both censored records. Combining \eqref{eq:hellinger} with the failure probabilities proves the result. The atom at $a_n$ is never compared coordinatewise; it is supplied by the fill operation, which is why no bound on that atom is needed.
+\end{proof}
+
+\begin{theorem}[Weak subcritical centering]\label{thm:weak}
+In the setting of Theorem~\ref{thm:allocation}, suppose $0<\lambda<\nu$ and put $\delta_n=m_n/n-\lambda$. If $\delta_n\log n\to0$, then \eqref{eq:allocfixed} holds for every fixed number of ranks. More generally, it holds for any $k_n$ satisfying
+\begin{equation}\label{eq:weakranks}
+ k_n=o(n),\qquad k_n(\delta_n\log n)^2\longrightarrow0.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Take the mean-matched tilt $\tau_n$ in Theorem~\ref{thm:allocation}(ii). Let $p=p_\tau$, $\theta_n=\log(\tau_n/\tau)$ and $M(\theta)=\E_p e^{\theta X}$. Then
+\begin{equation}\label{eq:tiltratio}
+ p_{\tau_n}(j)=p(j)\frac{e^{\theta_nj}}{M(\theta_n)}.
+\end{equation}
+Since the derivative of the tilted mean at zero is $\Var_pX>0$, the inverse function theorem gives $\theta_n=O(\delta_n)$. The fixed law has a positive exponential moment because $\tau<\rho$. For some $t>0$,
+\[
+ \sup_n\E_{p_{\tau_n}}e^{tX}<\infty
+\]
+after discarding finitely many indices. Choose $B_n=\lceil C_0\log n\rceil$ with $C_0t>2$. Markov's inequality yields \eqref{eq:overflow}.
+
+For $j\le B_n$, \eqref{eq:tiltratio} and smoothness of $\log M$ give
+\[
+ \left|\log\frac{p_{\tau_n}(j)}{p(j)}\right|
+ \le |\theta_n|B_n+|\log M(\theta_n)|
+ =O(|\delta_n|\log n)=o(1).
+\]
+Hence \eqref{eq:relative} holds with $\epsilon_n\le C_1|\delta_n|\log n$ for large $n$. Lemma~\ref{lem:censor} compares the independent rank vectors under $p_{\tau_n}$ and $p_\tau$. Theorem~\ref{thm:allocation}(ii) compares the allocation ranks to the former. The triangle inequality proves the theorem.
+\end{proof}
+\begin{remark}
+The restriction in \eqref{eq:weakranks} is a sufficient condition in the weak-centering regime, not a claimed optimal growing-rank range there. In the central fixed-law regime, Theorem~\ref{thm:lead} gives every $k_n=o(n)$ without that extra restriction.
+\end{remark}
+

@@ -1,0 +1,40 @@
+\section{Introduction}
+Conditioning a sample on its sum creates dependence between all its coordinates. Nevertheless, its largest observations may have almost the same joint law as before conditioning. We prove this by comparing the complete record of observations in a rare set, including their positions. The comparison holds in total variation, uniformly over attainable sums in a bounded central-limit window, and does not require the expected number of recorded observations to stay bounded.
+
+For probability measures on a countable space, write
+\begin{equation}\label{eq:tv}
+ \TV(P,Q)=\sup_A|P(A)-Q(A)|=\frac12\sum_x|P\{x\}-Q\{x\}|.
+\end{equation}
+Order statistics are arranged in decreasing order, with multiplicity. For a lattice law, its \emph{maximal span} is the largest $d>0$ for which its support lies in some translate $a+d\Z$.
+
+\begin{theorem}[Sublinear collections of upper ranks]\label{thm:lead}
+Let $X_1,X_2,\ldots$ be independent copies of a nonnegative integer-valued random variable $X$ with mean $\mu$ and variance $0<\sigma^2<\infty$. Put $S_n=\sum_{i=1}^nX_i$. For every fixed $C>0$ and every integer sequence $1\le k_n=o(n)$,
+\begin{equation}\label{eq:lead}
+ \sup_{\substack{m:\ \Pp(S_n=m)>0\\ |m-n\mu|\le C\sqrt n}}
+ \TV\left(\Law((X_{(j)})_{j\le k_n}\mid S_n=m),
+               \Law((X_{(j)})_{j\le k_n})\right)\longrightarrow0.
+\end{equation}
+\end{theorem}
+No regular variation, smoothness of the mass function, or moment of order greater than two is assumed. Gaps in the support and ties between order statistics are permitted. For a fixed bounded law, both rank vectors equal its maximum support value with probability tending to one. For unbounded laws, the conclusion compares the complete joint distribution of a growing collection of nonconstant order statistics. For example, $k_n=\lfloor n^{0.9}\rfloor$ and $k_n=\lfloor n/\log n\rfloor$ are allowed. These are asymptotic statements, not finite-sample error bounds.
+
+\subsection{The allocation question}
+Whenever the generating function admits a positive exponential tilt, a weighted allocation is an independent sample from the tilted law, conditioned on its total. Janson \cite[Theorem~19.7]{Janson} proves total-variation approximation for the largest box and asks whether it extends to every fixed upper rank; the surrounding discussion also proposes the joint extension to finitely many ranks. This is Problem~19.10 in the published survey, numbered 18.10 in its 2011 preprint. Theorem~\ref{thm:lead} gives the fixed-law conclusion and extends the number of ranks from fixed to arbitrary $o(n)$. Section~\ref{sec:allocations} treats mean-matched moving tilts and the finite-variance boundary. Section~\ref{sec:weak} proves the weaker interior fixed-tilt centering statement. The adjacent sparse-allocation question and infinite-variance regimes are outside the present results.
+
+\subsection{Related conditional approximations}
+Conditional limit theorems have a substantial literature. Holst \cite{Holst} studies conditional limits with applications to occupancy-type problems. Diaconis and Freedman \cite{DF} give total-variation approximations for predetermined coordinate blocks in exponential families. Their hypotheses include regularity and moment assumptions suited to quantitative estimates. Our observation instead combines a predetermined block with coordinates selected through their values; the fixed-law theorem requires only a second moment and a lattice nondegeneracy condition.
+
+Arratia and Tavar\'e \cite[Sections~2--3 and~8]{AT} develop a general framework for independent processes conditioned on weighted sums, including vector constraints and further conditioning. In particular, their Theorem~3 expresses total variation through a ratio of residual-sum probabilities. The conditioning representation and likelihood-ratio method used here belong to that framework; they are not new principles. Our contribution is the uniform finite-variance comparison for a value-selected indexed record, its joint version with a growing coordinate block, and the resulting range of upper ranks.
+
+Asymptotic independence between sums and extreme observations also predates the allocation question. Hsing \cite{Hsing} treats sums and rare values of weakly dependent stationary sequences. Li and Tan \cite{LT} study joint limit theorems for extreme order statistics and partial sums of independent observations. Such joint-limit results motivate the present problem, but weak convergence alone does not control conditioning on one lattice value, whose probability tends to zero.
+
+The closest allocation comparison is Stufler's result for a growing collection of extreme component sizes in Gibbs partitions \cite[Corollary~3.6]{Stufler}. The number of components there is random, and Remark~3.9 explicitly relates conditioning on that number to Janson's question. Averaging over the number of summands does not by itself give a comparison at each prescribed number. We keep that number fixed and obtain every $o(n)$ upper ranks under finite variance. The admissible rank range and model assumptions should therefore be compared together, rather than by the phrase ``growing extremes'' alone.
+
+For conditioned trees, the allocation representation comes from the classical cyclic argument underlying the total-progeny formula \cite{Dwass,Janson}. Th\'evenin \cite{Thevenin} studies vertices with specified outdegrees and related conditioned-tree limits. Kortchemski and Vetter \cite{KV} study rare fringe-subtree patterns, using local-limit estimates to remove bridge conditioning. Their patterns involve several adjacent vertices, unlike the single-coordinate record here. At the opposite, large-deviation scale, Armend\'ariz and Loulakis \cite{AL} describe conditioned heavy-tailed samples with a large summand. Those condensation results concern a different conditioning regime from the central windows considered below.
+
+The proofs combine this conditioning approach with a uniform lattice local limit theorem and Scheff\'e's argument \cite{Scheffe}. The Poisson corollary uses the classical binomial--Poisson bound \cite{BH,AGG}.
+
+\subsection{Proof mechanism}
+After the rare values and their positions are revealed, the unrevealed variables remain independent with the law conditioned to avoid the rare set. Bayes' formula therefore expresses the conditional record density as a ratio of two lattice-sum probabilities. The centered sum of the removed observations fluctuates on an $o(\sqrt n)$ scale; its expectation need not be negligible. An exact centering identity makes the two local Gaussian displacements agree uniformly. A one-sided identity for normalized densities then converts convergence in probability of the likelihood ratio into total-variation convergence. Sorting a sufficiently rich rare record gives the upper-rank theorem.
+
+The general record theorem is stated in Section~\ref{sec:record} and proved in Section~\ref{sec:proof}, using the local limit theorem of Section~\ref{sec:llt}. Sections~\ref{sec:ranks}--\ref{sec:weak} give the allocation applications. Section~\ref{sec:poisson} gives Poisson approximations. Section~\ref{sec:vector} treats several constraints and a growing coordinate block, with an application to trees with a prescribed leaf count. Section~\ref{sec:limits} establishes the limits of the conclusions. The finite checks in Appendix~\ref{sec:checks} supplement the analytic proofs.
+
